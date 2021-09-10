@@ -10,7 +10,7 @@ if (!globalThis.fetch) {
 
 const main = () => {
   app.get('/', () => {
-    console.log('hello2')
+    console.log('hello')
   })
   app.get('/photos/:albumId', Photo)
   app.get('/photos', Photos)

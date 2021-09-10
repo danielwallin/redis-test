@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  web:
+    container_name: ${APP_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - '${APP_PORT}:${APP_PORT}'
+    volumes:
+      - .:/opt/app/
+    # command override CMD in Dockerfile when "docker-compose up"
+    command: npm run start
+    depends_on:
+      - redis
+  redis:
+    image: 'redis'
+    container_name: ${REDIS_HOST_NAME}
+    hostname: ${REDIS_HOST_NAME}
+    command: redis-server --port ${REDIS_DEV_PORT}
+    ports:
+      - '${REDIS_DEV_PORT}:${REDIS_DEV_PORT}'

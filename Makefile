@@ -2,10 +2,10 @@ include .env
 export $(shell sed 's/=.*//' .env)
 
 bash: 
-	@docker exec -it ${APP_NAME} bash
+	docker-compose exec web bash
 
 redis: 
-	@docker exec -it ${REDIS_HOST_NAME} bash -c "redis-cli -p ${REDIS_DEV_PORT}"
+	docker-compose exec redis bash -c "redis-cli -p ${REDIS_DEV_PORT}"
 
 dev: 
 	docker-compose stop
@@ -15,4 +15,4 @@ restart:
 	docker-compose up --build	
 
 logs:
-	@docker logs -f --tail=$* ${APP_NAME}		
+	docker-compose logs -f --tail=$* web		
